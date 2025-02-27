@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goHome()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Favoritos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Verificación de si hay favoritos -->
+  <div *ngIf="favoritos.length > 0" class="user-details-container">
+    <ion-list>
+      <!-- Recorriendo los usuarios favoritos -->
+      <ion-card *ngFor="let user of favoritos">
+        <ion-card-header>
+          <ion-card-title class="ion-text-center">{{ user.name }}</ion-card-title>
+          <ion-card-subtitle class="ion-text-center">{{ user.email }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <!-- Información detallada -->
+        <ion-list lines="none">
+          <!-- Empresa -->
+          <ion-item class="detail-item">
+            <ion-icon slot="start" name="business" color="primary"></ion-icon>
+            <ion-label>
+              <h2>Empresa</h2>
+              <p>{{ user.company.name }}</p>
+            </ion-label>
+          </ion-item>
+
+          <!-- Dirección -->
+          <ion-item class="detail-item">
+            <ion-icon slot="start" name="location" color="primary"></ion-icon>
+            <ion-label>
+              <h2>Dirección</h2>
+              <p>{{ user.address.street }}</p>
+              <p>{{ user.address.suite }}</p>
+              <p>{{ user.address.city }} - {{ user.address.zipcode }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+        <!-- Botón para eliminar de favoritos -->
+        <ion-footer>
+          <ion-button expand="full" color="danger" (click)="removeFavorite(user)">
+            Eliminar de Favoritos
+          </ion-button>
+        </ion-footer>
+      </ion-card>
+    </ion-list>
+  </div>
+
+  <!-- Estado cuando no hay favoritos -->
+  <div *ngIf="favoritos.length === 0" class="loading-container">
+    <div class="loading-content">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p class="ion-text-center ion-margin-top">No tienes usuarios favoritos...</p>
+    </div>
+  </div>
+</ion-content>

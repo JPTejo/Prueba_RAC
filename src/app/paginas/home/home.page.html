@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Lista de Usuarios</ion-title>
+    <ion-buttons slot="end">
+    </ion-buttons>
+  </ion-toolbar>
+  
+  <ion-toolbar color="light">
+    <ion-searchbar 
+      [(ngModel)]="searchTerm" 
+      debounce="500" 
+      placeholder="Buscar usuario..."
+      animated
+      color="primary"
+      class="custom-searchbar">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Estado de carga -->
+  <div *ngIf="users.length === 0" class="loading-container">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p class="ion-text-center ion-margin-top">Cargando usuarios...</p>
+  </div>
+
+  <!-- Lista de usuarios -->
+  <div *ngIf="filterUsers().length > 0">
+    <ion-list lines="none">
+      <ion-card 
+        *ngFor="let user of filterUsers()" 
+        class="user-card"
+        (click)="goToUserDetails(user)">
+        
+        <ion-item lines="none" class="card-content">
+          <ion-avatar slot="start" class="user-avatar">
+            {{ user.name | initials }}
+          </ion-avatar>
+          
+          <ion-label>
+            <h2>{{ user.name }}</h2>
+            <p class="user-email">{{ user.email }}</p>
+            <ion-note>
+              <ion-icon name="business" class="company-icon"></ion-icon>
+              {{ user.company.name }}
+            </ion-note>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+  </div>
+
+  <!-- Estado vacío -->
+  <div *ngIf="users.length > 0 && filterUsers().length === 0" class="empty-state">
+    <ion-icon name="search-outline" color="medium" class="empty-icon"></ion-icon>
+    <h3 class="ion-text-center">No se encontraron resultados</h3>
+    <p class="ion-text-center">Intenta con otro nombre</p>
+  </div>
+</ion-content>
+
+<!-- Footer con el botón para ir a favoritos -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="full" routerLink="/favoritos">
+      <ion-icon name="star" slot="start" color="warning"></ion-icon>
+      Ir a Favoritos
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center" >Detalles del Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="user" class="user-details-container">
+    <!-- Tarjeta de información principal -->
+    <ion-card class="profile-card">
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">{{ user.name }}</ion-card-title>
+        <ion-card-subtitle class="ion-text-center">{{ user.email }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <!-- Información detallada -->
+    <ion-list lines="none">
+      <!-- Empresa -->
+      <ion-item class="detail-item">
+        <ion-icon slot="start" name="business" color="primary"></ion-icon>
+        <ion-label>
+          <h2>Empresa</h2>
+          <p>{{ user.company.name }}</p>
+        </ion-label>
+      </ion-item>
+
+      <!-- Dirección -->
+      <ion-item class="detail-item">
+        <ion-icon slot="start" name="location" color="primary"></ion-icon>
+        <ion-label>
+          <h2>Dirección</h2>
+          <p>{{ user.address.street }}</p>
+          <p>{{ user.address.suite }}</p>
+          <p>{{ user.address.city }} - {{ user.address.zipcode }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Estado de carga -->
+  <div *ngIf="!user" class="loading-container">
+    <div class="loading-content">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p class="ion-text-center ion-margin-top">Cargando información del usuario...</p>
+    </div>
+  </div>
+
+  <!-- Botón de agregar a favoritos -->
+  <ion-footer>
+    <ion-button expand="full" (click)="toggleFavorite()">
+      <ion-icon 
+        slot="start" 
+        [name]="isFavorite() ? 'star' : 'star-outline'" 
+        [color]="isFavorite() ? 'warning' : 'light'">
+      </ion-icon>
+      {{ isFavorite() ? 'Usuario es favorito' : 'Agregar a favoritos' }}
+    </ion-button>
+  </ion-footer>
+</ion-content>

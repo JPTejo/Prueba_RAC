@@ -1,0 +1,7 @@
+{
+  "name": "Proyecto_RAC",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
