@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { DetalleUsuarioPageRoutingModule } from './detalle-usuario-routing.module';
 
 import { DetalleUsuarioPage } from './detalle-usuario.page';
-import { InitialsPipe } from '../../pipes/initials.pipe';
 
 @NgModule({
   imports: [
@@ -16,6 +15,6 @@ import { InitialsPipe } from '../../pipes/initials.pipe';
     IonicModule,
     DetalleUsuarioPageRoutingModule
   ],
-  declarations: [DetalleUsuarioPage, InitialsPipe]
+  declarations: [DetalleUsuarioPage]
 })
 export class DetalleUsuarioPageModule {}
